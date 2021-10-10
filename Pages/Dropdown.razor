@@ -1,0 +1,11 @@
+<div class="dropdown">
+    <button class="btn btn-outline-light dropdown-toggle" type="button" id="font-size-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        @Title
+    </button>
+    <div class="dropdown-menu" aria-labelledby="font-size-btn">
+        @foreach (string item in Items)
+        {
+            <a class="dropdown-item" href="#" @onclick="() => Selected(item)">@item</a>
+        }
+    </div>
+</div>
