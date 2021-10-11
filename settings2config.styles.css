@@ -1,0 +1,19 @@
+/* /Components/Dropdown.razor.rz.scp.css */
+.dropdown .dropdown-menu[b-nakuwi4b03] { 
+    max-height: 450px !important;
+    overflow: auto; 
+} 
+/* /Pages/Index.razor.rz.scp.css */
+.editor-wrapper[b-k0krpblo86]{
+    height: 100vh;
+}
+/* /Shared/MainLayout.razor.rz.scp.css */
+.page[b-0gkbmw2qg8] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.main[b-0gkbmw2qg8] {
+    flex: 1;
+}
