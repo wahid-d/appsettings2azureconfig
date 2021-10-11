@@ -4,15 +4,15 @@
 
     $(document).ready(function ()
     {
+        var baseUrl = window.location.href;
         $("#alert").hide();
-        fetch("/themes/themelist.json")
+        fetch(`${baseUrl}/themes/themelist.json`)
         .then(response => response.json())
         .then(themes => 
         {
-            // console.log(themes)
             $.each(themes, function(index, item){
 
-                var themeFile = `/themes/${item}.json`;
+                var themeFile = `${baseUrl}/themes/${item}.json`;
                 fetch(themeFile)
                 .then(response => response.json())
                 .then(theme => 
