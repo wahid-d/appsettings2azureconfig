@@ -1,6 +1,5 @@
 ﻿@page "/"
-@using settings2config.Shared
-@using BlazorMonaco
+@using settings2config.Components
 
 <GithubPrompt/>
 
@@ -13,7 +12,7 @@
     <div class="col-lg-6 container editor-wrapper">
         <div class="d-flex justify-content-between align-items-end my-3">
             <span class="badge badge-light">appsettings.json</span>
-            <Clipboard Id="settings-clipboard"/>
+            @* <Clipboard Id="settings-clipboard"/> *@
         </div>
         <MonacoEditor Id="input-editor" OnDidPaste="OnPasted" @ref="InputEditor" ConstructionOptions="InputOptions" CssClass="h-75 border-0"/>
     </div>

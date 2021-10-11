@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
 
-namespace settings2config.Shared
+namespace settings2config.Components
 {
     public partial class Clipboard
     {

@@ -1,13 +1,17 @@
-using System.Linq;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
-using BlazorMonaco;
-using Microsoft.AspNetCore.Components;
 using System.Text.Json;
-using System;
+using System.Threading.Tasks;
+
+using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+
+using BlazorMonaco;
+
+using settings2config.Components;
 
 namespace settings2config.Pages
 {
@@ -31,7 +35,7 @@ namespace settings2config.Pages
         [Inject]
         public IJSRuntime JS { get; set; }
         
-        
+        static DateTime firstCall = DateTime.Now.AddSeconds(-1);
 
         protected override async Task OnInitializedAsync()
         {
@@ -50,9 +54,10 @@ namespace settings2config.Pages
             string sampleJson = System.Text.Json.JsonSerializer.Serialize(jsonObj, new JsonSerializerOptions() { WriteIndented = true });
             
             await InputEditor.SetValue(sampleJson);
+            await OnPasted(new PasteEvent());
+            StateHasChanged();
         }
 
-        static DateTime firstCall = DateTime.Now;
         private async Task OnPasted(PasteEvent e)
         {
             var elapsingSeconds = (DateTime.Now - firstCall).TotalSeconds;
@@ -63,7 +68,6 @@ namespace settings2config.Pages
                 value = await JS.InvokeAsync<string>("appsettings.toAzureConfig", await InputEditor.GetValue());
                 await OutputEditor.SetValue(value);   
             }
-
         }
 
         private void ThemeSelected(string theme)
@@ -84,6 +88,7 @@ namespace settings2config.Pages
         {
             var outputOptions = DefaultOptions();
             outputOptions.Value = "";
+            outputOptions.ReadOnly = true;
             return outputOptions;
         }
 

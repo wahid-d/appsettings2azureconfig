@@ -3,7 +3,7 @@ using System;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 
-namespace settings2config.Pages
+namespace settings2config.Components
 {
     public partial class Dropdown : ComponentBase
     {
