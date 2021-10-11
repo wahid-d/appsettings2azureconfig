@@ -4,6 +4,7 @@
 
     $(document).ready(function ()
     {
+        $("#alert").hide();
         fetch("/themes/themelist.json")
         .then(response => response.json())
         .then(themes => 
@@ -66,6 +67,15 @@ window.appsettings = {
     }
 }
 
+window.alerts = {
+    show: function (){
+        $("#alert").removeClass('d-none');
+        $("#alert").hide();
+        $("#alert").fadeTo(2000, 500).slideUp(250, function() {
+            $("#alert").slideUp(1000);
+        });
+    }
+}
 
 function validateJson(jsonString){
     if(/^[\],:{}\s]*$/.test(jsonString.replace(/\\["\\\/bfnrtu]/g, '@').
