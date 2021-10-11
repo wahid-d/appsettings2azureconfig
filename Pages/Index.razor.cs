@@ -57,6 +57,7 @@ namespace settings2config.Pages
         private async void OnClipboardClicked()
         {
             await ClipboardService.WriteTextAsync(await OutputEditor.GetValue());
+            await JS.InvokeVoidAsync("alerts.show");
         }
 
         private async Task OnPasted(PasteEvent e)
