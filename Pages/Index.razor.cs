@@ -5,35 +5,30 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
 using System.Threading.Tasks;
-
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-
 using BlazorMonaco;
-
 using settings2config.Components;
+using settings2config.Services;
 
 namespace settings2config.Pages
 {
     public partial class Index
     {
         public MonacoEditor InputEditor { get; set; }
-        
         public MonacoEditor OutputEditor { get; set; }
-        
         public Dropdown FontsizeDropdown { get; set; }
-        
         public Dropdown ThemesDropdown { get; set; }
-
+        public Clipboard OutputClipboard { get; set; }
         public List<string> Fontsizes { get; set; }
-        
         public List<string> Themes { get; set; }
-
         [Inject]
         protected HttpClient Client { get; set; }
-
         [Inject]
         public IJSRuntime JS { get; set; }
+        [Inject]
+        public ClipboardService ClipboardService { get; set; }
+        
         
         static DateTime firstCall = DateTime.Now.AddSeconds(-1);
 
@@ -49,6 +44,7 @@ namespace settings2config.Pages
 
             FontsizeDropdown.OnSelected += FontsizeSelected;
             ThemesDropdown.OnSelected += ThemeSelected;
+            OutputClipboard.OnClick += OnClipboardClicked;
 
             var jsonObj = await Client.GetFromJsonAsync<object>("sample.json");
             string sampleJson = System.Text.Json.JsonSerializer.Serialize(jsonObj, new JsonSerializerOptions() { WriteIndented = true });
@@ -56,6 +52,11 @@ namespace settings2config.Pages
             await InputEditor.SetValue(sampleJson);
             await OnPasted(new PasteEvent());
             StateHasChanged();
+        }
+
+        private async void OnClipboardClicked()
+        {
+            await ClipboardService.WriteTextAsync(await OutputEditor.GetValue());
         }
 
         private async Task OnPasted(PasteEvent e)
