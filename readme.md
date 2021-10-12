@@ -3,6 +3,6 @@
 ### TO-DO
 - [x] refactoring
 - [x] add clipboard support
-- [ ] setup Github Action CI/CD (docker)
+- [x] setup Github Action CI/CD (docker)
 - [ ] add error handling
 - [x] add popup alerts
